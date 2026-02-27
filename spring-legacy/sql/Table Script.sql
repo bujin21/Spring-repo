@@ -149,7 +149,11 @@ CREATE SEQUENCE SEQ_CM_NO;
 
 
 
-
+SELECT *
+		FROM MEMBER
+WHERE USER_ID  = 'admin'
+    AND USER_PWD = '1234'
+    AND STATUS = 'Y';
 
 
 
