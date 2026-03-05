@@ -22,8 +22,8 @@ public class MemberValidator implements Validator{
 		// id값 검사
 		if(member.getUserId() != null) {
 			// 사용자가 입력한 아이디가 4~20자 사이인지 검사
-			if(member.getUserId().length() >= 4 &&
-				member.getUserId().length() <= 20) {
+			if(!(member.getUserId().length() >= 4 &&
+				member.getUserId().length() <= 20)) {
 				errors.rejectValue("userId", "length","아이디는 4~20자 이내여야 합니다.");
 			}
 			// 사용자가 입력한 문자열이 영문자, 숫자, _로만 이루어져 있는지 확인

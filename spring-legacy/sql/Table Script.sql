@@ -143,5 +143,39 @@ CREATE TABLE CHAT_ROOM_JOIN (
 CREATE SEQUENCE SEQ_CR_NO;
 CREATE SEQUENCE SEQ_CM_NO;
 
+--- 권한 테이블 --
+CREATE TABLE AUTHORITIES(
+    USER_NO NUMBER REFERENCES MEMBER ,
+    AUTHORITY VARCHAR2(15) ,
+    PRIMARY KEY(USER_NO, AUTHORITY)
+);
 
+-- 회원가입할때 자동 권한 주기 기능전 권한 일일히 주기--
+INSERT INTO AUTHORITIES VALUES (4 , 'ROLE_ADMIN');
+INSERT INTO AUTHORITIES VALUES (4 , 'ROLE_USER');
+
+COMMIT;
+
+------------------ 시큐리티 유저
+CREATE TABLE persistent_logins (
+    username        VARCHAR(64)  NOT NULL,
+    series          VARCHAR(64)  PRIMARY KEY,
+    token           VARCHAR(64)  NOT NULL,
+    last_used       TIMESTAMP    NOT NULL
+);
+
+
+CREATE INDEX idx_persistent_logins_username
+ON persistent_logins(username);
+
+SELECT 
+    BOARD_NO,
+    BOARD_TITLE,
+    USER_NAME AS BOARD_WRITER,
+    COUNT,
+    CREATE_DATE
+FROM BOARD B
+LEFT JOIN MEMBER M ON BOARD_WRITER = USER_NO
+WHERE B.STATUS = 'Y' AND BOARD_CD = 'N'
+ORDER BY BOARD_NO DESC
 
