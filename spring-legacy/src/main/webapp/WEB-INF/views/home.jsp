@@ -23,6 +23,8 @@
 
     </div>
 	<script>
+		// 스프링시큐리티 추가시 모든 비동기 요청 중 post상태의 요청에 대해
+		// 인증토큰을 보내야한다.
         document.getElementById("select1").addEventListener("click", function(){
             const in1 = document.getElementById('in1');
             const result1 = document.getElementById('result1');

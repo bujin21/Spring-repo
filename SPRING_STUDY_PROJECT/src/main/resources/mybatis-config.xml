@@ -8,6 +8,6 @@
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
-		<package name="com.kh.spring"/>
+		<package name="com.kh.study"/>
 	</typeAliases>
 </configuration>
