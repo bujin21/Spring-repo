@@ -21,6 +21,9 @@
 		});
 	}
 </script>
+<script
+        src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 <!--  공통적으로사용할 라이브러리 추가 -->
 <!-- Jquey 라이브러리 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -97,7 +100,22 @@ height:80%; position:absolute; margin:auto; top:0px; bottom:0px; right:0px; left
 	background-color : white;
 }
 </style>
+<sec:authorize access="isAuthenticated()">
+	<script>
+		$(function(){
+			const stompClient = Stomp.over(new SockJS('${contextPath}/stomp'));
+			
+			stompClient.connect({},function(){
+				//전체 공지사항 url구독
+				stompClient.subscribe("/topic/notice", function(message){
+					alertify.alert(message.body);
+				})
+			})
+		})
+	</script>
+</sec:authorize>
 </head>
+
 <body>
 <c:if test="${not empty alertMsg}">
 <script>

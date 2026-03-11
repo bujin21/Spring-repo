@@ -38,8 +38,8 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public void inserAuthority(Member m) {
-		session.insert("member.inserAuthority", m);
+	public void insertAuthority(Member m) {
+		session.insert("member.insertAuthority", m);
 		
 	}
 

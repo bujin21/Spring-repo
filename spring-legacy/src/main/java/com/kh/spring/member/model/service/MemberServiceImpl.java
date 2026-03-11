@@ -22,7 +22,7 @@ public class MemberServiceImpl implements MemberService{
 	public int insertMember(Member m) {
 		// 회원가입과 동시에 권한 추가
 		int result = memberDao.insertMember(m);
-		memberDao.inserAuthority(m);
+		memberDao.insertAuthority(m);
 		return result;
 	}
 

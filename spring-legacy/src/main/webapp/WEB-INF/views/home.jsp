@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +22,30 @@
         </div>
 
     </div>
+    
+    <!-- 
+    	관리자 공지기능
+    	
+     -->
+     <sec:authorize access="hasRole('ROLE_ADMIN')">
+	     <div class="content-2">
+	         <input type="text" id="notice" placeholder="공지내용을입력하세요.">
+	         <button id="send-notice-btn">공지보내기</button>
+	     </div>
+	     <script>
+	     	$(function(){
+	     		const stompClient = Stomp.over(new SockJS('${contextPath}/stomp'));
+	     		
+	     		stompClient.connect({}, function(){
+	     			const sendBtn = document.querySelector("#send-notice-btn");
+	     			sendBtn.onclick = function(){
+	     				const content = document.querySelector("#notice").value;
+	     				stompClient.send("/app/notice/send", {}, content)
+	     			}
+	     		})
+	     	})
+	     </script>     
+     </sec:authorize>
 	<script>
 		// 스프링시큐리티 추가시 모든 비동기 요청 중 post상태의 요청에 대해
 		// 인증토큰을 보내야한다.

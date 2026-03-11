@@ -3,7 +3,7 @@
 <mapper namespace="security">
 	<select id="loadUserByUsername" resultMap="userDetailResultMap">
 		SELECT * FROM MEMBER
-		WHERE USER_ID = #{username}
+		WHERE USER_ID = #{userName}
 	</select>
 	
 	<resultMap id="userDetailResultMap" type="memberExt" >
